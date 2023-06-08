@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { User } from '../firebase/autentication';
 
 export function Profile(){
     return(
         <View style={styles.container}>
-            <Text>Profile</Text>
+            <Text>{User?.email}</Text>
             <StatusBar style="auto" />
         </View>
     );

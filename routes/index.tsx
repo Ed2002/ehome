@@ -8,6 +8,7 @@ import { Login } from '../src/screens/Login';
 import { useEffect, useState } from 'react';
 import {getAuth, onAuthStateChanged } from "@firebase/auth";
 import { f } from '../src/firebase/firebase';
+import { SetUser } from '../src/firebase/autentication';
 
 const {Navigator,Screen} = createBottomTabNavigator();
 
@@ -20,6 +21,7 @@ export function Routes(){
         {
             console.log(user);
             SetSingIn(true);
+            SetUser(user);
         }
     });
 

@@ -2,6 +2,9 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, on
 import { f } from "./firebase";
 import { useEffect, useState } from "react";
 
+
+var User:any = null;
+
 const SingUp = (email: string, password: string) => {
     createUserWithEmailAndPassword(getAuth(f),email, password)
     .then(UserCredentials => {
@@ -19,6 +22,10 @@ const SingIn = (email: string, password: string) => {
     })
     .catch(err =>{alert(err.message)})
 }
-    
 
-export {SingUp,SingIn}
+const SetUser = (UserValue: any) => {
+    User = UserValue;
+}
+
+
+export {SingUp,SingIn,SetUser,User}
