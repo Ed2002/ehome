@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, onAuthStateChanged } from "@firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, signOut } from "@firebase/auth";
 import { f } from "./firebase";
 import { useEffect, useState } from "react";
 
@@ -27,5 +27,11 @@ const SetUser = (UserValue: any) => {
     User = UserValue;
 }
 
+const Logout = () => {
+    signOut(getAuth(f)).then(()=>{
+        User = null;
+        console.log("Sair");
+    });
+}
 
-export {SingUp,SingIn,SetUser,User}
+export {SingUp,SingIn,SetUser,User,Logout}
