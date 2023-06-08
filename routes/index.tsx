@@ -5,16 +5,28 @@ import { File } from '../src/screens/File';
 import { NavigationContainer } from '@react-navigation/native';
 import {Feather} from '@expo/vector-icons';
 import { Login } from '../src/screens/Login';
+import { useEffect, useState } from 'react';
+import {getAuth, onAuthStateChanged } from "@firebase/auth";
+import { f } from '../src/firebase/firebase';
 
 const {Navigator,Screen} = createBottomTabNavigator();
 
 export function Routes(){
 
-    const auth = false;
+    const [SingIn,SetSingIn] = useState<boolean>(false);
+
+    onAuthStateChanged(getAuth(f), user => {
+        if(user)
+        {
+            console.log(user);
+            SetSingIn(true);
+        }
+    });
+
 
     return(
         <NavigationContainer>
-            {!auth ? (
+            {!SingIn ? (
                 <Login/>
             ) : (
                 <Navigator screenOptions={{

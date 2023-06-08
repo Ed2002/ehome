@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SingUp, SingIn } from '../firebase/autentication';
-
 export function Login(){
     const [Email,SetEmail] = useState<string>('');
     const [Password,SetPassword] = useState<string>('');
+    
 
     return(
         <View style={styles.container}>
