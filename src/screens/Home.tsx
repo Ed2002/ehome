@@ -63,7 +63,6 @@ export function Home(){
     
     const openVideoScreen = () => {
         navigation.navigate('VideoScreen',{ UrlVideo: selectedMovie?.MovieDownloadUrl as string});
-        //nav.navigation.navigate('VideoScreen',{ UrlVideo: selectedMovie?.MovieDownloadUrl as string });
     };
 
     
