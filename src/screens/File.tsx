@@ -6,18 +6,22 @@ import { File as FileType, Movie } from '../types/types';
 import { User } from '../firebase/autentication';
 import { addDoc, collection, getFirestore } from '@firebase/firestore';
 import { f } from '../firebase/firebase';
+import { Image } from 'expo-image';
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
+import { AppStyles } from '../styles';
 
 export const File = () => {
 
     const [CardUri, setCardUri] = useState<string>('');
     const [MovieUri, setMovieUri] = useState<string>('');
     const [Title, setTitle] = useState<string>('');
+    const [Uploading, setUploading] = useState<boolean>(false);
 
     const handleUpload = async () => {
-
         try
         {
+            setUploading(true);
+
             const card = await UploadCard();
 
             console.log(card);
@@ -40,10 +44,15 @@ export const File = () => {
             addDoc(archivesRef,File);
     
             console.log("Upload!");
+
+            alert('Upload feito com sucesso!');
+
+            setUploading(false);
         }
         catch(errors)
         {
             alert('Erro ao enviar upload!');
+            setUploading(false);
         }
     };
 
@@ -119,34 +128,52 @@ export const File = () => {
         }
     };
 
+    const blurhash = '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
+   
+
     return(
         <View style={styles.container}>
-            <TextInput
-                style={styles.textInput}
-                placeholder='Titulo'
-                onChangeText={text => setTitle(text)}
-            />
-            <Text style={{color:'#48D951'}}>File</Text>
-            <Text style={{color:'#48D951'}}>{CardUri !== '' ? "Arquivo Selecionado" : "Selecione um arquivo"}</Text>
-            <TouchableOpacity
-                onPress={pickCard}
-                style={styles.btn}
-            >
-                <Text style={styles.btntext}>Buscar Card</Text>
-            </TouchableOpacity>
-            <Text style={{color:'#48D951'}}>{MovieUri !== '' ? "Arquivo Selecionado" : "Selecione um arquivo"}</Text>
-            <TouchableOpacity
-                onPress={pickMovie}
-                style={styles.btn}
-            >
-                <Text style={styles.btntext}>Buscar Filme</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={handleUpload}
-                style={styles.btn}
-            >
-                <Text style={styles.btntext}>UPLOAD</Text>
-            </TouchableOpacity>
+            {Uploading ? (
+                <>
+                    <Image
+                        style={{ width: 100, height: 100, marginBottom: 30 }}
+                        source={require("../assets/upload.png")}
+                        placeholder={blurhash}
+                        contentFit="cover"
+                        transition={1000}   
+                    />
+                    <Text style={AppStyles.TitleG}>Uploading</Text>
+                </>
+            ) : (
+                <>
+                    <TextInput
+                    style={styles.textInput}
+                    placeholder='Titulo'
+                    onChangeText={text => setTitle(text)}
+                    />
+                    <Text style={{color:'#48D951'}}>File</Text>
+                    <Text style={{color:'#48D951'}}>{CardUri !== '' ? "Arquivo Selecionado" : "Selecione um arquivo"}</Text>
+                    <TouchableOpacity
+                        onPress={pickCard}
+                        style={styles.btn}
+                    >
+                        <Text style={styles.btntext}>Buscar Card</Text>
+                    </TouchableOpacity>
+                    <Text style={{color:'#48D951'}}>{MovieUri !== '' ? "Arquivo Selecionado" : "Selecione um arquivo"}</Text>
+                    <TouchableOpacity
+                        onPress={pickMovie}
+                        style={styles.btn}
+                    >
+                        <Text style={styles.btntext}>Buscar Filme</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={handleUpload}
+                        style={styles.btn}
+                    >
+                        <Text style={styles.btntext}>UPLOAD</Text>
+                    </TouchableOpacity>
+                </>
+            )}
             <StatusBar style="inverted" />
         </View>
     );

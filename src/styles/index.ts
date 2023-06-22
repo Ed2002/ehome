@@ -20,6 +20,11 @@ export const AppStyles = StyleSheet.create({
         fontWeight: '800',
         color: '#ffffff',
     },
+    TitleB: {
+        fontSize: 24,
+        fontWeight: '800',
+        color: '#000',
+    },
     ParagraphG: {
         fontSize: 16,
         fontWeight: '600',
