@@ -7,16 +7,11 @@ import { f } from '../firebase/firebase';
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/types';
 import {Feather} from '@expo/vector-icons';
-import { VideoScreen } from './VideoScreen';
 import { useNavigation } from '@react-navigation/native';
-import {VideoScreenProps} from './VideoScreen'
 import { StackNavigationProp } from '@react-navigation/stack';
-
-//https://picsum.photos/seed/696/200/100
 
 
 type RootStackParamList = {
-  // ... outras rotas ...
   VideoScreen: { UrlVideo: string };
 };
 
